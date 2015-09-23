@@ -93,13 +93,13 @@ var objectKeys = function (obj) {
 
 var dataFaker = {
 	names: {
-		female: fileToArray('./lib/female.txt'),
-		male: fileToArray('./lib/male.txt')
+		female: fileToArray(path.join(__dirname, 'lib', 'female.txt')),
+		male: fileToArray(path.join(__dirname, 'lib', 'male.txt'))
 	},
-	surnames: fileToArray('./lib/surnames.txt'),
+	surnames: fileToArray(path.join(__dirname, 'lib', 'surnames.txt')),
 	createUsers: function(count) {
-		var adjectives = fileToArray('./lib/adjectives.txt'),
-			nouns = fileToArray('./lib/nouns.txt'),
+		var adjectives = fileToArray(path.join(__dirname, 'lib', 'adjectives.txt')),
+			nouns = fileToArray(path.join(__dirname, 'lib', 'nouns.txt')),
 			userNames = [];
 
 		for (var i = 0; i < count; i++) {
