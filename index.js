@@ -32,6 +32,20 @@ var randomDate = function() {
 	return date;
 }
 
+var createPassword = function(count) {
+	var count = count;
+	var charArray = fileToArray(path.join(__dirname, 'lib', 'chars.txt') );
+
+	var password = "";
+	for (var i = 0; i < count; i++) {
+		var index = randomArrayIndex(charArray),
+			item = charArray[index];
+		//check if it's a letter (not a number) and one of %50
+		if(index > 9 &&  index % 2 == 0) item = item.toUpperCase();
+		password += item;
+	};
+	return password;
+}
 
 var isArray = function(obj) {
 	return Object.prototype.toString.call(obj).indexOf('Array') > -1; 
@@ -57,12 +71,20 @@ var transformArray = function(array) {
 					}								
 				}
 				else {
-					if ( isArray(objSchema[schemaKey]) ) {
-						newObject[schemaKey] = transformArray(objSchema[schemaKey]);
+					var key = objSchema[schemaKey];
+
+					if ( isArray(key) ) {
+						newObject[schemaKey] = transformArray(key);
 					}
-					//Check if its lorem
-					else if(objSchema[schemaKey].toString().indexOf('lorem') == 0) {
-						newObject[schemaKey] = dataFaker.lorem(objSchema[schemaKey]);
+					//Keys and counts (like 'lorem-10' or 'password-8')
+					else if(key.toString().indexOf('lorem') == 0 
+						||	key.toString().indexOf('password') == 0 ) {
+						
+						var keyArr = key.split('-'), 
+							keyValue = keyArr[0], 
+							keyCount = keyArr[1];
+
+						newObject[schemaKey] = dataFaker[keyValue](keyCount);
 					}
 					else {
 						newObject[schemaKey] = objSchema[schemaKey];	
@@ -145,6 +167,9 @@ var dataFaker = {
 			return this.userName();
 		}
 	},
+	password: function(charCount) {
+		return createPassword(charCount);
+	},
 	eMail: function(objSchema) {
 		if(objSchema.userName) return objSchema.userName + '@example.com';
 		else return 'no_username@example.com'
@@ -152,10 +177,9 @@ var dataFaker = {
 	date: function() {
 		return randomDate().toString();
 	},
-	lorem: function(loremString) {
-		var count = loremString.split('-')[1];
+	lorem: function(wordCount) {
 		return lorem({
-			count: count,
+			count: wordCount,
 			units: 'words'
 		});
 	},

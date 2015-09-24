@@ -12,24 +12,39 @@ npm install data-faker
 #### Basic Usage
 
 ```js
-
 var dataFaker = require('data-faker');
 
 var users = dataFaker.schema([{
     firstname: 'firstName',
     lastname: 'lastName',
+    username: 'userName',
+    password: 'password-8', //generates password with 8 characters 
     gender: 'gender'
-}, 3]); //Data object count
+}, 3]); //data object count
 ```
 
 Output:
 ```js
-users = [ 
-    { firstname: 'Adeline', lastname: 'Dillon', gender: 'female' },
-    { firstname: 'Edith', lastname: 'Dunn', gender: 'female' },
-    { firstname: 'Cael', lastname: 'Carroll', gender: 'male' }
+users = [
+{
+    firstname: "Abbey",
+    lastname: "Frey",
+    username: "mushy_science",
+    password: "18h9hhYC",
+    gender: "female" },
+{
+    firstname: "Will",
+    lastname: "Clements",
+    username: "incredible_geese",
+    password: "G0IOAxAA",
+    gender: "male" },
+{
+    firstname: "Aron",
+    lastname: "Mahoney",
+    username: "junior_cloth",
+    password: "QUMMOOGG",
+    gender: "male" }
 ]
-
 ```
 
 #### Custom Values
@@ -39,13 +54,14 @@ dataFaker.set('valueName', [arrayOfValues], {options})
 ```
 
 Custom Value Options: 
-```sh
+```js
 {
     range: true, // Returns random numbers between two integers
     unique: true // Returns each value in array only once
 }
 ```
 
+Example:
 
 ```js
 var dataFaker = require('data-faker');
@@ -101,13 +117,14 @@ posts = [
 ### Built-in Values (for now)
 
 ```
-'firstName'
-'lastName'
-'userName'
-'gender'
-'eMail' // Has issues. Probably will return 'no_username@example.com'
-'date'
-'lorem-[integer]' 
+* 'firstName'
+* 'lastName'
+* 'userName'
+* 'password-[integer]' 
+* 'gender'
+* 'eMail' // Has issues. Probably will return 'no_username@example.com'
+* 'date'
+* 'lorem-[integer]' 
 ```
 
 
