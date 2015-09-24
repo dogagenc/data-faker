@@ -150,7 +150,7 @@ var dataFaker = {
 		else return 'no_username@example.com'
 	},
 	date: function() {
-		return randomDate();
+		return randomDate().toString();
 	},
 	lorem: function(loremString) {
 		var count = loremString.split('-')[1];
